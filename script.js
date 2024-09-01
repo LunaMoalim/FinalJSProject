@@ -48,6 +48,9 @@ function renderContacts(query = '') {
             contactList.appendChild(contactItem);
         });
     }
+// Ensure footer stays at the bottom
+ adjustFooterPosition();
+
 }
 
 /**
@@ -144,7 +147,21 @@ function saveContact() {
     } else {
         alert('שם ומספר טלפון הם שדות חובה.');
     }
+ function adjustFooterPosition() {
+        const mainContent = document.querySelector('main');
+        const footer = document.querySelector('footer');
+        const windowHeight = window.innerHeight;
+        const mainContentHeight = mainContent.offsetHeight;
+        const footerHeight = footer.offsetHeight;
+    
+        if (mainContentHeight + footerHeight < windowHeight) {
+            document.body.style.paddingBottom = `${footerHeight}px`;
+        } else {
+            document.body.style.paddingBottom = '0';
+        }
+    }
 }
+
 
 // ======== אירועים =========
 
@@ -230,3 +247,5 @@ contactForm.addEventListener('submit', (event) => {
 
 // הצגת אנשי הקשר בעת טעינת הדף
 renderContacts();
+// עדכון מיקום ה-footer בעת שינוי גובה החלון
+window.addEventListener('resize', adjustFooterPosition);
