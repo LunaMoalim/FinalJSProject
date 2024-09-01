@@ -1,9 +1,16 @@
 /* Basic settings */
 body {
-    font-family: Arial, sans-serif;
+  font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #ce9494;
+    flex-direction: column; 
+    height: 100%;
+    display: flex;
+}
+html, body {
+    height: 100%;
+    margin: 0;
 }
 
 header {
@@ -102,6 +109,7 @@ footer {
     color: #231d1a;
     padding: 10px 0;
     text-align: center;
+margin-top: auto;
 }
 
 .effect {
