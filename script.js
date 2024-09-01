@@ -2,10 +2,10 @@
 
 // ======== משתנים גלובליים =========
 const contacts = [
-    { id: 1, name: 'Hanna Berry', phone: '123-456-7890', address: '123 Elm Street',  notes: 'Friend from college', photo: 'images/hanna.jpg' },
-    { id: 2, name: 'Louis Hilton', phone: '234-567-8901', address: '456 Oak Avenue',  notes: 'Work colleague', photo: 'images/louis.jpg' },
-    { id: 3, name: 'Pia Parker', phone: '345-678-9012', address: '789 Pine Road',  notes: '', photo: 'images/pia.jpg' },
-    { id: 4, name: 'David Davison', phone: '456-789-0123', address: '101 Maple Street', notes: '', photo: 'images/david.jpg' }
+    { id: 1, name: 'Hanna Berry', phone: '123-456-7890', address: '123 Elm Street', email: 'hanna@example.com',  notes: 'Friend from college', photo: 'images/hanna.jpg' },
+    { id: 2, name: 'Louis Hilton', phone: '234-567-8901', address: '456 Oak Avenue', email: 'louis@example.com',  notes: 'Work colleague', photo: 'images/louis.jpg' },
+    { id: 3, name: 'Pia Parker', phone: '345-678-9012', address: '789 Pine Road',  email: 'pia@example.com', notes: '', photo: 'images/pia.jpg' },
+    { id: 4, name: 'David Davison', phone: '456-789-0123', address: '101 Maple Street', email: 'david@example.com', notes: '', photo: 'images/david.jpg' }
 ];
 
 const contactList = document.getElementById('contactList');
@@ -31,10 +31,6 @@ function sortContacts(contactsList) {
  */
 function renderContacts(query = '') {
     contactList.innerHTML = '';
-
-    const filteredContacts = contacts.filter(contact =>
-        contact.name.toLowerCase().includes(query.toLowerCase())
-    );
 
     const filteredContacts = contacts.filter(contact =>
         contact.name.toLowerCase().includes(query.toLowerCase())
