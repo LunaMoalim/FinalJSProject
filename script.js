@@ -143,6 +143,12 @@ function showPopup(contact) {
 function hidePopup() {
     popup.classList.add('hidden');
 }
+/**
+ * בודקת אם הטקסט הוא מספר בלבד
+*/
+function isNumeric(text) {
+    return /^\d+$/.test(text);
+}
 
 /**
  * שומר את פרטי איש הקשר (הוספה או עדכון)
@@ -169,6 +175,9 @@ function saveContact() {
         } else {
             alert('Already Exists');
         }
+ } else {
+        alert('מספר הטלפון יכול להכיל רק מספרים.');
+    }
     } else {
         alert('שם ומספר טלפון הם שדות חובה.');
     }
@@ -187,7 +196,6 @@ function saveContact() {
             document.body.style.paddingBottom = '0';
         }
     }
-}
 
 
 // ======== אירועים =========
