@@ -18,6 +18,10 @@ const addContactBtn = document.getElementById('addContactBtn');
 const deleteAllContactsBtn = document.getElementById('deleteAllContactsBtn');
 const footerEffectBtn = document.getElementById('footerEffectBtn');
 
+function sortContacts(contactsList) {
+    return contactsList.slice().sort((a, b) => a.name.localeCompare(b.name));
+}
+
 // ======== פונקציות עזר =========
 
 /**
@@ -31,10 +35,16 @@ function renderContacts(query = '') {
         contact.name.toLowerCase().includes(query.toLowerCase())
     );
 
-    if (filteredContacts.length === 0) {
+    const filteredContacts = contacts.filter(contact =>
+        contact.name.toLowerCase().includes(query.toLowerCase())
+    );
+
+    const sortedContacts = sortContacts(filteredContacts);
+
+    if (sortedContacts.length === 0) {
         contactList.innerHTML = '<p>אין רשומות.</p>';
     } else {
-        filteredContacts.forEach(contact => {
+        sortedContacts.forEach(contact => {
             const contactItem = document.createElement('div');
             contactItem.className = 'contact-item';
             contactItem.innerHTML = `
@@ -48,6 +58,7 @@ function renderContacts(query = '') {
             contactList.appendChild(contactItem);
         });
     }
+
 // Ensure footer stays at the bottom
  adjustFooterPosition();
 
@@ -61,6 +72,13 @@ function renderContacts(query = '') {
 function getContactById(id) {
     return contacts.find(contact => contact.id === id);
 }
+
+/**
+ * בודקת אם שם איש קשר קיים ברשימה
+ */
+ function isContactNameExists(name) {
+    return contacts.some(contact => contact.name.toLowerCase() === name.toLowerCase());
+ }
 
 /**
  * מוסיפה איש קשר חדש לרשימה
@@ -114,6 +132,7 @@ function showPopup(contact) {
     document.getElementById('name').value = contact.name || '';
     document.getElementById('phone').value = contact.phone || '';
     document.getElementById('address').value = contact.address || '';
+    document.getElementById('email').value = contact.email || '';
     document.getElementById('notes').value = contact.notes || '';
     popup.classList.remove('hidden');
 }
@@ -134,19 +153,27 @@ function saveContact() {
     const name = document.getElementById('name').value;
     const phone = document.getElementById('phone').value;
     const address = document.getElementById('address').value;
+     const email = document.getElementById('email').value;
     const notes = document.getElementById('notes').value;
 
-    if (name && phone) {
-        const contact = { id, photo, name, phone, address, notes };
-        if (id) {
-            updateContact(contact);
+  if (name && phone && email) {
+       if (name && phone) {
+        if (id || !isContactNameExists(name)) {
+            const contact = { id, photo, name, phone, address,email, notes };
+            if (id) {
+                updateContact(contact);
+            } else {
+                addContact(contact);
+            }
+            hidePopup();
         } else {
-            addContact(contact);
+            alert('Already Exists');
         }
-        hidePopup();
     } else {
         alert('שם ומספר טלפון הם שדות חובה.');
     }
+
+}
  function adjustFooterPosition() {
         const mainContent = document.querySelector('main');
         const footer = document.querySelector('footer');
