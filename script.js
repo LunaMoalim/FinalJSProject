@@ -18,6 +18,7 @@ const addContactBtn = document.getElementById('addContactBtn');
 const deleteAllContactsBtn = document.getElementById('deleteAllContactsBtn');
 const footerEffectBtn = document.getElementById('footerEffectBtn');
 
+
 function sortContacts(contactsList) {
     return contactsList.slice().sort((a, b) => a.name.localeCompare(b.name));
 }
@@ -163,7 +164,7 @@ function saveContact() {
     const notes = document.getElementById('notes').value;
 
   if (name && phone && email) {
-       if (name && phone) {
+       if (isNumeric(phone)) {
         if (id || !isContactNameExists(name)) {
             const contact = { id, photo, name, phone, address,email, notes };
             if (id) {
